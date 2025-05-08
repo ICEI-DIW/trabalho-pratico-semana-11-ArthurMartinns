@@ -1,18 +1,37 @@
 {
-  "usuarios": [
+  "filmes": [
     {
-      "id": "187cb7e5-e097-4224-8bc7-b610c855e2b1",
-      "login": "admin",
-      "senha": "123",
-      "nome": "Administrador do Sistema",
-      "email": "admin@abc.com"
+      "id": 1,
+      "titulo": "Ilha do Medo",
+      "descricao": "Um agente federal investiga o desaparecimento de uma paciente em um hospital psiquiátrico isolado.",
+      "sinopse": "Em 1954, os agentes federais Teddy Daniels e Chuck Aule são enviados ao Hospital Ashecliffe, localizado na remota Shutter Island, para investigar o desaparecimento de uma paciente. À medida que a investigação avança, Teddy descobre segredos obscuros que o fazem questionar sua própria sanidade.",
+      "genero": "Suspense / Mistério",
+      "diretor": "Martin Scorsese",
+      "destaque": true,
+      "data_lancamento": "2010-03-12",
+      "imagem_principal": "assets/assets/shutterIsland.webp"
     },
     {
-      "id": "ec37c83d-4b7f-458d-9e10-3fda7d37cd3e",
-      "login": "user",
-      "senha": "123",
-      "nome": "Usuario Comum",
-      "email": "user@abc.com"
+      "id": 2,
+      "titulo": "O Preço da Verdade",
+      "descricao": "Um advogado enfrenta uma poderosa corporação química em uma batalha judicial que expõe um escândalo ambiental.",
+      "sinopse": "Baseado em fatos reais, o filme acompanha Robert Bilott, um advogado ambiental que descobre que uma das maiores corporações químicas do mundo está contaminando uma cidade com produtos tóxicos. À medida que ele se aprofunda no caso, coloca sua carreira, família e vida em risco para revelar a verdade.",
+      "genero": "Drama / Suspense",
+      "diretor": "Todd Haynes",
+      "destaque": false,
+      "data_lancamento": "2019-11-22",
+      "imagem_principal": "assets/assets/precoDaVerdade.webp"
+    },
+    {
+      "id": 3,
+      "titulo": "Um Contratempo",
+      "descricao": "Um empresário é acusado de assassinato e contrata uma especialista para construir sua defesa.",
+      "sinopse": "Adrián Doria é acusado de matar sua amante em um quarto de hotel trancado por dentro. Para provar sua inocência, ele contrata Virginia Goodman, uma especialista em preparar testemunhas. Em uma noite de interrogatório intenso, segredos ocultos vêm à tona.",
+      "genero": "Suspense / Crime",
+      "diretor": "Oriol Paulo",
+      "destaque": true,
+      "data_lancamento": "2017-01-06",
+      "imagem_principal": "assets/assets/umContratempo.webp"
     }
   ]
 }
