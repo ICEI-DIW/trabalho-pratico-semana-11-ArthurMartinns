@@ -118,54 +118,54 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
-    <script src="assets/scripts/app.js"></script>
 
     <script>
         const bannerItems = document.getElementById("carousel-inner");
-        const cardList = document.getElementById("items")
+        const cardList = document.getElementById("items");
 
-        dados.filmes.forEach((item, index) => {
-            const cardElement = document.createElement("div");
+        
+        fetch("http://localhost:3000/filmes")
+            .then(res => res.json())
+            .then(filmes => {
+                filmes.forEach((item, index) => {
+                    const cardElement = document.createElement("div");
+                    cardElement.classList.add("carousel-item");
+                    if (index === 0) cardElement.classList.add("active");
 
-            cardElement.classList.add("carousel-item");
+                    cardElement.innerHTML = `
+                        <a href="detalhe.html?id=${item.id}">
+                            <img class="d-block w-100" src="${item.imagem_principal}" alt="${item.titulo}" />
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2 style="color: #F59E0B">${item.titulo}</h2>
+                            </div>
+                        </a>
+                    `;
+                    bannerItems.appendChild(cardElement);
+                });
+            });
 
-            if (index === 0) cardElement.classList.add("active");
+        fetch("http://localhost:3000/filmesCards")
+            .then(res => res.json())
+            .then(filmesCards => {
+                filmesCards.forEach((item) => {
+                    const cardElemento = document.createElement("div");
 
-            cardElement.innerHTML = `
-                <a href="detalhe.html?id=${item.id}">
-                    <img
-                        class="d-block w-100"
-                        src="${item.imagem_principal}"
-                        alt="${item.titulo}"
-                    />
-                    <div class="carousel-caption d-none d-md-block">
-                        <h2 style="color: #F59E0B" background-color="#000">${item.titulo}</h2>
-                    </div>
-                </a>
-            `;
+                    cardElemento.innerHTML = `
+                    <a href="detalhe.html?id=${item.id}">
+                        <div class="card" style="width: 18rem; height: 100%; background-color:transparent;">
+                        <img class="card-img-top" src=${item.imagem_principal} alt="Imagem de capa do card">
+                        <div class="card-body d-flex flex-column justify-content-between" style="gap:1.5rem;">
+                            <h5 class="card-title" style="color: #F59E0B;">${item.titulo}</h5>
+                            <p class="card-text">${item.descricao}</p>
+                            <a href="detalhe.html?id=${item.id}" class="btn btn-primary w-100" style="background-color: rgba(245, 158, 11, 0.55); border: none;">Visitar</a>
+                        </div>
+                        </div>
+                    </a>
+                    `;
+                    cardList.appendChild(cardElemento);
+                });
+            });
 
-            bannerItems.appendChild(cardElement);
-        });
-
-        dados.filmesCards.forEach((item) => {
-            const cardElemento = document.createElement("div");
-
-            cardElemento.innerHTML = `
-          <a href="detalhe.html?id=${item.id}">
-            <div class="card" style="width: 18rem; height: 100%; background-color:transparent;">
-              <img class="card-img-top" src=${item.imagem_principal} alt="Imagem de capa do card">
-              <div class="card-body d-flex flex-column justify-content-between" style="gap:1.5rem;">
-                <h5 class="card-title" style="color: #F59E0B;">${item.titulo}</h5>
-                <p class="card-text">${item.descricao}</p>
-                <a href="detalhe.html?id=${item.id}" class="btn btn-primary w-100" style="background-color: rgba(245, 158, 11, 0.55); border: none;">Visitar</a>
-              </div>
-            </div>
-          </a>
-          `;
-
-            cardList.appendChild(cardElemento);
-        })
-    </script>
     </script>
 </body>
 

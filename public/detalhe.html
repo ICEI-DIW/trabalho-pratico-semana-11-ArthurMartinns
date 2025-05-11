@@ -17,9 +17,9 @@
         aria-controls="navbarContent" aria-expanded="false" aria-label="Alternar navegação">
         <span class="navbar-toggler-icon"></span>
       </button>
-
     </nav>
   </header>
+
   <section class="p-2">
     <button class="btn btn-warning">
       <a href="index.html" style="text-decoration: none; color: black;">
@@ -27,97 +27,109 @@
       </a>
     </button>
   </section>
-  <div id="tela" class="w-100 d-flex justify-content-center items-center mt-4 p-2" style="gap: 2rem;">
 
-  </div>
-  <div id="telaCards" class="w-100 d-flex justify-content-center items-center mt-4 p-2" style="gap: 2rem;">
-
+  <div id="tela" class="w-100 d-flex justify-content-center align-items-center mt-4 p-2" style="gap: 2rem;">
   </div>
 
-  <script src="assets/scripts/app.js"></script>
+  <div id="telaCards" class="w-100 d-flex justify-content-center align-items-center mt-4 p-2" style="gap: 2rem;">
+  </div>
 
   <script>
     let params = new URLSearchParams(location.search);
-
     let id = params.get("id");
 
-    let movieData = dados.filmes.find(function (element) {
-      return element.id == id;
-    })
+    async function buscarFilmePorId(id) {
+      const url = `http://localhost:3000/filmesCards/${id}`;  
+      try {
+        const resposta = await fetch(url);
 
-    let movieDataCards = dados.filmesCards.find(function (element) {
-      return element.id == id;
-    })
+        if (!resposta.ok) {
+          console.log("Errro")
+          return;
+        }
 
-    let tela = document.getElementById("tela");
+        const dados = await resposta.json();
+        const filme = dados;
 
-    if (movieData) {
-      tela.innerHTML = `
+
+
+        if (filme) {
+          document.getElementById('tela').innerHTML = gerarDetalhesDoFilme(filme);
+        } else {
+          document.getElementById('tela').innerHTML = '<div class="alert alert-danger" role="alert">Filme não encontrado!</div>';
+        }
+      } catch (erro) {
+        console.error('Erro:', erro);
+        document.getElementById('tela').innerHTML = '<div class="alert alert-danger" role="alert">Erro ao carregar os dados.</div>';
+      }
+    }
+
+    async function buscarFilmePorId2(id) {
+      const url = `http://localhost:3000/filmes/${id}`;  
+      try {
+        const resposta = await fetch(url);
+        
+        if (!resposta.ok) {
+          console.log("Errro")
+          return;
+        }
+
+        const dados = await resposta.json();
+        const filme = dados;
+
+
+
+        if (filme) {
+          document.getElementById('tela').innerHTML = gerarDetalhesDoFilme(filme);
+        } else {
+          document.getElementById('tela').innerHTML = '<div class="alert alert-danger" role="alert">Filme não encontrado!</div>';
+        }
+      } catch (erro) {
+        console.error('Erro:', erro);
+        document.getElementById('tela').innerHTML = '<div class="alert alert-danger" role="alert">Erro ao carregar os dados.</div>';
+      }
+    }
+
+    function gerarDetalhesDoFilme(filme) {
+      return `
         <div class="d-flex flex-column">
-          <div style="display: flex; flex-wrap: wrap; background-color: #0F172A; color: #FFF; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-            <img src="${movieData.imagem_principal}" alt="Imagem do filme" style="width: 100%; max-width: 500px; max-height: 500px; object-fit: cover;">
+          <div class="d-flex flex-wrap bg-dark text-white rounded-lg overflow-hidden shadow-lg">
+            <img src="${filme.imagem_principal}" alt="Imagem do filme" style="width: 100%; max-width: 500px; max-height: 500px; object-fit: cover;">
             <div class="p-4" style="flex: 1; padding: 2rem;">
-              <h3 style="color: #F59E0B; font-weight: bold; margin-bottom: 1rem;">
-                ${movieData.titulo}
+              <h3 class="text-warning font-weight-bold mb-4">
+                ${filme.titulo}
               </h3>
-              <p style="margin-bottom: 1rem;">
-                <strong style="color: #F59E0B;">Descrição:</strong> ${movieData.descricao}
+              <p class="mb-4">
+                <strong class="text-warning">Descrição:</strong> ${filme.descricao}
               </p>
-              <p style="margin-bottom: 1rem;">
-                <strong style="color: #F59E0B;">Sinopse:</strong> ${movieData.sinopse}
+              <p class="mb-4">
+                <strong class="text-warning">Sinopse:</strong> ${filme.sinopse}
               </p>
-              <p style="margin-bottom: 1rem;">
-                <strong style="color: #F59E0B;">Gênero:</strong> ${movieData.genero}
+              <p class="mb-4">
+                <strong class="text-warning">Gênero:</strong> ${filme.genero}
               </p>
-              <p style="margin-bottom: 1rem;">
-                <strong style="color: #F59E0B;">Diretor:</strong> ${movieData.diretor}
+              <p class="mb-4">
+                <strong class="text-warning">Diretor:</strong> ${filme.diretor}
               </p>
               <p>
-                <strong style="color: #F59E0B;">Data de lançamento:</strong> ${movieData.data_lancamento}
+                <strong class="text-warning">Data de lançamento:</strong> ${filme.data_lancamento}
               </p>
             </div>
           </div>
           <div class="w-100 d-flex flex-row justify-content-between p-4 flex-wrap" style="gap: 1rem;">
-              ${movieData.imagens_complementares.map(img => `
-                <img src="${img.src}" alt="Imagem do filme" style="width: 100%; max-width: 300px; max-height: 500px; object-fit: cover;">`)}
+            ${filme.imagens_complementares.map(img => `
+              <img src="${img.src}" alt="Imagem do filme" style="width: 100%; max-width: 300px; max-height: 500px; object-fit: cover;">
+            `).join('')}
           </div>
         </div>
-        `;
+      `;
+    }
 
-    } else if (movieDataCards) {
-      tela.innerHTML = `
-          <div class="d-flex flex-column">
-          <div style="display: flex; flex-wrap: wrap; background-color: #0F172A; color: #FFF; border-radius: 1rem; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-            <img src="${movieDataCards.imagem_principal}" alt="Imagem do filme" style="width: 100%; max-width: 500px; max-height: 500px; object-fit: cover;">
-            <div class="p-4" style="flex: 1; padding: 2rem;">
-              <h3 style="color: #F59E0B; font-weight: bold; margin-bottom: 1rem;">
-                ${movieDataCards.titulo}
-              </h3>
-              <p style="margin-bottom: 1rem;">
-                <strong style="color: #F59E0B;">Descrição:</strong> ${movieDataCards.descricao}
-              </p>
-              <p style="margin-bottom: 1rem;">
-                <strong style="color: #F59E0B;">Sinopse:</strong> ${movieDataCards.sinopse}
-              </p>
-              <p style="margin-bottom: 1rem;">
-                <strong style="color: #F59E0B;">Gênero:</strong> ${movieDataCards.genero}
-              </p>
-              <p style="margin-bottom: 1rem;">
-                <strong style="color: #F59E0B;">Diretor:</strong> ${movieDataCards.diretor}
-              </p>
-              <p>
-                <strong style="color: #F59E0B;">Data de lançamento:</strong> ${movieDataCards.data_lancamento}
-              </p>
-            </div>
-          </div>
-          <div class="w-100 d-flex flex-row justify-content-between p-4 flex-wrap" style="gap: 1rem;">
-              ${movieDataCards.imagens_complementares.map(img => `
-                <img src="${img.src}" alt="Imagem do filme" style="width: 100%; max-width: 300px; max-height: 500px; object-fit: cover;">`)}
-          </div>
-        </div>
-        `;
+    if (id) {
+      buscarFilmePorId(id);
+      buscarFilmePorId2(id)
     } else {
-      tela.innerHTML = `<div class="alert alert-danger" role="alert">Filme não encontrado!</div>`;
+      document.getElementById('tela').innerHTML = '<div class="alert alert-danger" role="alert">ID do filme não fornecido!</div>';
     }
   </script>
 
