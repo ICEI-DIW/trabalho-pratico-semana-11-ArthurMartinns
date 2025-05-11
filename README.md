@@ -4,10 +4,10 @@ Nessa etapa, vamos evoluir o projeto anterior e contemplar um ambiente de desenv
 
 ## Informações do trabalho
 
-- Nome:
-- Matricula:
-- Proposta de projeto escolhida:
-- Breve descrição sobre seu projeto:
+- Nome: Arthur Martins Candido
+- Matricula: 1581559
+- Proposta de projeto escolhida: Movies&Series
+- Breve descrição sobre seu projeto: Um projeto web de filmes e séries é como um catálogo online gigante onde você encontra tudo sobre seus filmes e séries favoritos. Pense em um site com uma página inicial cheia de novidades e categorias para facilitar sua busca, além de uma barra de pesquisa para encontrar títulos específicos. Cada filme ou série tem sua própria página com informações detalhadas, trailers, fotos, avaliações de outros usuários e links para assistir online. Alguns sites oferecem recursos extras, como listas personalizadas, notícias do mundo do entretenimento e recomendações baseadas nos seus gostos.
 
 **Print do teste da API com visualização do JSON**
 
